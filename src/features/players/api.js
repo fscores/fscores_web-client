@@ -1,0 +1,15 @@
+import axios from "axios";
+
+// You can define your base URL in an .env file or directly here
+const BASE_URL = "http://localhost:8765";
+
+export const fetchPlayers = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}/player-ms/player`);
+    console.log("Fetched players:", response.data);
+    return response.data; // assuming backend returns a JSON list of players
+  } catch (error) {
+    console.error("Failed to fetch players:", error);
+    throw error;
+  }
+};
