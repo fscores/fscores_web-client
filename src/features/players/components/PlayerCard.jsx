@@ -1,14 +1,31 @@
 const PlayerCard = ({ player }) => {
   return (
-    <div class="mx-auto flex max-w-sm items-center gap-x-4 rounded-xl bg-white p-6 shadow-lg outline outline-black/5 dark:bg-slate-800 dark:shadow-none dark:-outline-offset-1 dark:outline-white/10">
-      <img class="size-12 shrink-0" src="" alt="ChitChat Logo" />
-      <div>
-        <div class="text-xl font-medium text-black dark:text-white">
-          {player.id}
+    <li key={player.id} className="flex justify-between gap-x-6 py-5">
+      <div className="flex min-w-0 gap-x-4">
+        <img
+          alt=""
+          src="https://www.svgrepo.com/show/452030/avatar-default.svg"
+          className="size-12 flex-none rounded-full bg-gray-800 outline -outline-offset-1 outline-white/10"
+        />
+        <div className="min-w-0 flex-auto">
+          <p className="text-sm/6 font-semibold text-white">
+            {player.firstName} {player.lastName}
+          </p>
+          <p className="mt-1 truncate text-xs/5 text-gray-400">
+            {player.position}
+          </p>
         </div>
-        <p class="text-gray-500 dark:text-gray-400">{player.firstName} {player.lastName}</p>
       </div>
-    </div>
+      <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
+        <p className="text-sm/6 text-white">{player.nationality}</p>
+        <div className="mt-1 flex items-center gap-x-1.5">
+          <div className="flex-none rounded-full bg-emerald-500/30 p-1">
+            <div className="size-1.5 rounded-full bg-emerald-500" />
+          </div>
+          <p className="text-xs/5 text-gray-400">Active</p>
+        </div>
+      </div>
+    </li>
   );
 };
 

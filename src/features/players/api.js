@@ -5,8 +5,10 @@ const BASE_URL = "http://localhost:8765";
 
 export const fetchPlayers = async () => {
   try {
-    const response = await axios.get(`${BASE_URL}/player-ms/player`);
-    console.log("Fetched players:", response.data);
+    const response = await axios.post(
+      `${BASE_URL}/player-ms/player/search`,
+      {} // This object is sent as the request body
+    );
     return response.data; // assuming backend returns a JSON list of players
   } catch (error) {
     console.error("Failed to fetch players:", error);

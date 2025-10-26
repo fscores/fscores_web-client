@@ -1,18 +1,16 @@
-import './App.css'
+import "./App.css";
 import { Outlet, Link } from "react-router-dom";
+import Header from "./components/Header";
 
 function App() {
-
   return (
     <div>
-      <nav style={{ display: "flex", gap: "10px" }}>
-        <Link to="/">Home</Link>
-        <Link to="/players">Players</Link>
-        <Link to="/clubs">Clubs</Link>
-      </nav>
-      <Outlet /> {/* This is where nested route components will render */}
+      <Header />
+      <div className="container mx-auto mt-4">
+        <Outlet /> {/* This is where nested route components will render */}
+      </div>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -11,13 +11,11 @@ const playersSlice = createSlice({
   name: "players",
   initialState: {
     list: [],
+    metadata: null,
     loading: false,
     error: null,
   },
   reducers: {
-    addPlayer: (state, action) => {
-      state.list.push(action.payload);
-    },
   },
   extraReducers: (builder) => {
     builder
@@ -26,7 +24,8 @@ const playersSlice = createSlice({
       })
       .addCase(loadPlayers.fulfilled, (state, action) => {
         state.loading = false;
-        state.list = action.payload;
+        state.list = action.payload.players;
+        state.metadata = action.payload;
       })
       .addCase(loadPlayers.rejected, (state, action) => {
         state.loading = false;
