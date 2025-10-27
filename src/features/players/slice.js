@@ -2,10 +2,13 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { fetchPlayers } from "./api";
 
 // Async thunk example
-export const loadPlayers = createAsyncThunk("players/load", async () => {
-  const response = await fetchPlayers();
-  return response;
-});
+export const loadPlayers = createAsyncThunk(
+  "players/load",
+  async ({ searchOptions = {}, pageNo = 0, pageSize = 10, sortBy = "id" }) => {
+    const response = await fetchPlayers(searchOptions, pageNo, pageSize, sortBy);
+    return response;
+  }
+);
 
 const playersSlice = createSlice({
   name: "players",
@@ -15,8 +18,7 @@ const playersSlice = createSlice({
     loading: false,
     error: null,
   },
-  reducers: {
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(loadPlayers.pending, (state) => {
