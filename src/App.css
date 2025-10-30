@@ -2,8 +2,8 @@
 
 #root {
   margin: 0 auto;
-  padding-top: 1rem;
   padding-bottom: 2rem;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 html {
