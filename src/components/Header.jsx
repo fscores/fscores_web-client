@@ -1,4 +1,5 @@
-import { NavLink } from "react-router-dom"; // Import NavLink
+import { NavLink } from "react-router-dom";
+import footballIcon from "../assets/football.svg";
 
 const navigation = [
   { name: "Dashboard", href: "/" },
@@ -6,16 +7,18 @@ const navigation = [
   { name: "Clubs", href: "/clubs" },
 ];
 
-
 const Header = () => {
-
-
   return (
-    <div className="flex justify-between bg-gray-600 p-4 rounded-b-md bg-linear-to-r from-gray-500 to-gray-800">
-      <div>
-        <h2>FSCORES</h2>
+    <div className="flex justify-between bg-gray-600 p-2 rounded-b-md bg-linear-to-r from-gray-500 to-gray-800">
+      <div className="flex items-center">
+        <img
+          src={footballIcon}
+          alt="FScores Logo"
+          className="mx-1 h-12 px-3 py-2"
+        />
+        <h2 className="font-semibold text-xl">FScores</h2>
       </div>
-      <div className="hidden md:flex">
+      <div className="hidden md:flex h-12 items-center">
         {navigation.map((item) => (
           <NavLink
             key={item.name}
@@ -27,7 +30,7 @@ const Header = () => {
           </NavLink>
         ))}
       </div>
-      <div className="md:hidden" data-dropdown-toggle="dropdownNavbar" onClick={}>
+      <div className="md:hidden" data-dropdown-toggle="dropdownNavbar">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
