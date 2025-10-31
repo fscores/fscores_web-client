@@ -1,6 +1,6 @@
 const PlayerCard = ({ player }) => {
   return (
-    <li className="flex justify-between hover:bg-gray-700 rounded-lg mx-2">
+    <li className="flex justify-between hover:bg-gray-700 rounded-lg mx-2 my-1">
       <div className="flex items-center gap-4 p-4">
         <div className="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
           <svg

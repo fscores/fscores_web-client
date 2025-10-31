@@ -1,6 +1,6 @@
 const LoadingBox = () => {
   return (
-    <div role="status" className="justify-center flex items-center p-4">
+    <div role="status" className="justify-center flex items-center p-4 h-full">
       <svg
         aria-hidden="true"
         class="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"

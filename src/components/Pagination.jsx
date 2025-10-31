@@ -47,7 +47,13 @@ const Pagination = ({ metadata, handlePageChange, currentPageNo }) => {
                     setCurrentPage(i);
                     handlePageChange(i);
                   }}
-                  class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                  // This is functionally identical to your code, but uses the more common template literal syntax
+                  class={`flex items-center justify-center px-4 h-10 leading-tight border  border-gray-700 hover:bg-gray-700 hover:text-white
+                        ${
+                          isActive
+                            ? "bg-gray-700 text-white font-bold" // Note: the space before the active classes is essential here
+                            : "bg-gray-800 text-gray-400"
+                        }`}
                 >
                   {i + 1}
                 </button>

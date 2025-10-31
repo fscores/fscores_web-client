@@ -10,6 +10,7 @@ export const fetchPlayers = async (searchOptions, pageNo, pageSize, sortBy) => {
       `${BASE_URL}/player-ms/player/search?pageNo=${pageNo}&pageSize=${pageSize}&sortBy=${sortBy}`,
       searchOptions
     );
+    console.log("Fetched players:", response.data);
     return response.data;
   } catch (error) {
     console.error("Failed to fetch players:", error);
