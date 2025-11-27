@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { fetchPlayers } from "./api";
+import { fetchPlayers, fetchPlayerById } from "./api";
 
 // Async thunk example
 export const loadPlayers = createAsyncThunk(
@@ -11,15 +11,43 @@ export const loadPlayers = createAsyncThunk(
   }
 );
 
+export const loadPlayerDetail = createAsyncThunk(
+  "players/loadDetail",
+  async (id, { rejectWithValue }) => {
+    try {
+      const response = await fetchPlayerById(id);
+      if (!response.success) {
+        return rejectWithValue(response.message || "Failed to fetch player");
+      }
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 const playersSlice = createSlice({
   name: "players",
   initialState: {
     list: [],
     metadata: null,
+    detail: null,
     loading: false,
+    detailLoading: false,
     error: null,
+    detailError: null,
   },
-  reducers: {},
+  reducers: {
+    // 💡 FIX: Added the clearPlayerDetail reducer
+    clearPlayerDetail: (state) => {
+      state.detail = null;
+      state.detailError = null;
+    },
+    // The previous export { addPlayer } was unused; replacing it with a clear utility.
+    clearPlayerListError: (state) => {
+      state.error = null;
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(loadPlayers.pending, (state) => {
@@ -33,9 +61,21 @@ const playersSlice = createSlice({
       .addCase(loadPlayers.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
+      })
+      .addCase(loadPlayerDetail.pending, (state) => {
+        state.detailLoading = true;
+        state.detailError = null;
+      })
+      .addCase(loadPlayerDetail.fulfilled, (state, action) => {
+        state.detailLoading = false;
+        state.detail = action.payload;
+      })
+      .addCase(loadPlayerDetail.rejected, (state, action) => {
+        state.detailLoading = false;
+        state.detailError = action.payload;
       });
   },
 });
 
-export const { addPlayer } = playersSlice.actions;
+export const { clearPlayerDetail, clearPlayerListError } = playersSlice.actions;
 export default playersSlice.reducer;
