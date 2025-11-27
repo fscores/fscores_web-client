@@ -6,6 +6,7 @@ export const loadPlayers = createAsyncThunk(
   "players/load",
   async ({ searchOptions = {}, pageNo = 0, pageSize = 10, sortBy = "id" }) => {
     const response = await fetchPlayers(searchOptions, pageNo, pageSize, sortBy);
+    console.log("Fetched players:", response);
     return response;
   }
 );
@@ -26,8 +27,8 @@ const playersSlice = createSlice({
       })
       .addCase(loadPlayers.fulfilled, (state, action) => {
         state.loading = false;
-        state.list = action.payload.players;
-        state.metadata = action.payload;
+        state.list = action.payload.data;
+        state.metadata = action.payload.meta;
       })
       .addCase(loadPlayers.rejected, (state, action) => {
         state.loading = false;

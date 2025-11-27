@@ -8,7 +8,13 @@ import LoadingBox from "@/components/LoadingBox";
 import Pagination from "@/components/Pagination";
 import PlayerCard from "@/features/players/components/PlayerCard";
 
-var searchOptions = {};
+// Define a consistent default for search options
+const defaultSearchOptions = {
+  nameContains: "",
+  upperAge: 100,
+  lowerAge: 0,
+  positions: [],
+};
 
 const positions = [
   "Goalkeeper",
@@ -41,21 +47,36 @@ const PlayerList = () => {
   const [lowerAge, setLowerAge] = useState(0);
   const [upperAge, setUpperAge] = useState(100);
   const [selectedPositions, setSelectedPositions] = useState([]); // Updated to handle multiple positions
+  const [appliedSearchOptions, setAppliedSearchOptions] =
+    useState(defaultSearchOptions);
 
   useEffect(() => {
-    dispatch(loadPlayers({ searchOptions, pageNo: pageNo, pageSize, sortBy }));
-  }, [dispatch, pageNo, pageSize, sortBy]);
+    // This useEffect now uses the appliedSearchOptions state
+    console.log("PageNo:", pageNo, "SearchOptions:", appliedSearchOptions);
+    dispatch(
+      loadPlayers({
+        searchOptions: appliedSearchOptions,
+        pageNo: pageNo,
+        pageSize,
+        sortBy,
+      })
+    );
+  }, [dispatch, appliedSearchOptions, pageNo, pageSize, sortBy]);
 
   const handleSearch = (e) => {
     e.preventDefault();
-    searchOptions = {
-      ...searchOptions,
+    const newSearchOptions = {
       nameContains: searchText.trim(),
       upperAge,
       lowerAge,
-      positions: selectedPositions, // Send positions as an array
+      positions: selectedPositions,
     };
-    dispatch(loadPlayers({ searchOptions, pageNo: 0, pageSize, sortBy }));
+
+    // 1. Reset page to 0 when new filters are applied
+    setPageNo(0);
+
+    // 2. Apply the new search options, which will trigger the useEffect
+    setAppliedSearchOptions(newSearchOptions);
   };
 
   const handlePositionChange = (e) => {
