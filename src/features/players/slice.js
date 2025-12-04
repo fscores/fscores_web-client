@@ -52,6 +52,7 @@ const playersSlice = createSlice({
     builder
       .addCase(loadPlayers.pending, (state) => {
         state.loading = true;
+        state.error = null;
       })
       .addCase(loadPlayers.fulfilled, (state, action) => {
         state.loading = false;

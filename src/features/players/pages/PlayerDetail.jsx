@@ -63,10 +63,10 @@ const PlayerDetail = () => {
       <PlayerHeader player={player} />
 
       {/* 2. Key Statistics */}
-      <KeyStats stats={player.currentSeasonStats} />
+      {/* <KeyStats stats={player.currentSeasonStats} /> */}
 
       {/* 3. Detailed History */}
-      <PlayerHistory history={player.careerHistory} />
+      {/* <PlayerHistory history={player.careerHistory} /> */}
     </div>
   );
 };

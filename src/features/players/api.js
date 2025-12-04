@@ -20,12 +20,10 @@ axiosInstance.interceptors.request.use((config) => {
 
 export const fetchPlayers = async (searchOptions, pageNo, pageSize, sortBy) => {
   try {
-    console.log("Fetching players with options:", { searchOptions, pageNo, pageSize, sortBy });
     const response = await axiosInstance.post(
       `/player-ms/player/search?pageNo=${pageNo}&pageSize=${pageSize}&sortBy=${sortBy}`,
       searchOptions
     );
-    console.log("Fetched players:", response.data);
     return response.data;
   } catch (error) {
     console.error("Failed to fetch players:", error);
@@ -35,34 +33,11 @@ export const fetchPlayers = async (searchOptions, pageNo, pageSize, sortBy) => {
 
 export const fetchPlayerById = async (id) => {
   try {
-    if (!id && id !== 0) throw new Error("fetchPlayerById: invalid id");
-    const resp = await axiosInstance.get(`/player-ms/player/${id}`);
-    const payload = resp.data;
-
-    // handle wrapper ApiResponseDto { success / isSuccess, data, message }
-    const successFlag = payload?.success ?? payload?.isSuccess ?? true;
-    if (!successFlag) {
-      const msg = payload?.message || `Player ${id} not found`;
-      const err = new Error(msg);
-      // attach response body for callers if needed
-      err.responseData = payload;
-      throw err;
-    }
-
-    // return the inner data if present, otherwise return payload
-    return payload?.data ?? payload;
+    const response = await axiosInstance.get(`/player-ms/player/${id}`);
+    console.log("Fetched player by ID:", response.data);
+    return response.data;
   } catch (error) {
-    // normalize axios error messages
-    if (axios.isAxiosError(error)) {
-      const msg =
-        error.response?.data?.message ||
-        error.response?.data?.error ||
-        error.message ||
-        "Network error";
-      const err = new Error(msg);
-      err.status = error.response?.status;
-      throw err;
-    }
+    console.error("Failed to fetch player:", error);
     throw error;
   }
 };

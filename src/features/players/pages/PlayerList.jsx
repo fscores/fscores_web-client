@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { TrophyIcon } from "@heroicons/react/24/outline";
 
 import { useAppDispatch, useAppSelector } from "../../../app/hook";
 import { loadPlayers } from "../slice";
